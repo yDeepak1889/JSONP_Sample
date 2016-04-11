@@ -177,7 +177,7 @@
 			//temp.pop();
 			//temp = temp.join('');
 			//console.log(temp);
-
+			
 			var icon;
 			if (outside.match(/cloud/gi)) {
 				icon = '\"fa fa-cloud\"';
@@ -188,6 +188,15 @@
 			}else if (outside.match(/sun/gi) || outside.match(/clear/gi)){
 				icon = '\"fa fa-sun-o\"';
 			}
+			
+			var data = new Date();
+			data = data.getHours();
+			
+			if (data<=20 && data >= 6 && icon == '\"fa fa-moon-o\"') {
+					icon = '\"fa fa-sun-o\"';
+				}else {
+					icon = '\"fa fa-moon-o\"';
+				}
 	
 		//	console.log(icon);
 		var ans = document.getElementById('answer');
