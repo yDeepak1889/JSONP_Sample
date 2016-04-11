@@ -100,8 +100,8 @@
 				var result = (xhttp.responseText);
 				result = JSON.parse(result);
 				weather(result.results[0].geometry.location.lat, result.results[0].geometry.location.lng);
-				//console.log(result.results[0].geometry.location.lat);
-				//console.log(result.results[0].geometry.location.lng);
+				console.log(result.results[0].geometry.location.lat);
+				console.log(result.results[0].geometry.location.lng);
 		}
 	}
 		xhttp.open("GET", url, true);
@@ -126,24 +126,22 @@
 
 				condition1 = result.forecast.txt_forecast.forecastday[0].fcttext_metric;
 				condition2 = result.forecast.txt_forecast.forecastday[1].fcttext_metric;
-				max_temp = result.forecast.simpleforecast.forecastday[0].high.celsius;
-				min_temp = result.forecast.simpleforecast.forecastday[0].low.celsius;
-				//console.log(condition1);
+				console.log(condition1);
 
-				//console.log(condition2);
+				console.log(condition2);
 
 				//console.log(result.results[0].geometry.location.lng);
 				//call display fucntion
 				var data = new Date();
 
 				data  = data.getHours();
-				//console.log(data);
+				console.log(data);
 
 
 				if (data<=20 && data >= 6) {
-					display(condition1,max_temp);
+					display(condition1,result);
 				}else {
-					display(condition2,min_temp);
+					display(condition2,result);
 				}
 		}
 	}
@@ -155,8 +153,8 @@
 //display starts----------------------------------
 
 
-	function display(condition,temp) {
-			//console.log(condition);
+	function display(condition,result) {
+			console.log(condition);
 
 
 			var outside;
@@ -165,23 +163,22 @@
 			var temp_arr;
 			temp_arr = condition.split('.');
 
-			//console.log(temp_arr);
+			console.log(temp_arr);
 
 			outside = temp_arr[0];
-		//	console.log(outside);
+			console.log(outside);
 
-			
+			temp = temp_arr[1].split(' ');
+			temp = temp[temp.length - 1];
+			temp = temp.split('');
+			temp.pop();
+			temp = temp.join('');
 			console.log(temp);
-			//temp = temp[temp.length - 1];
-			//temp = temp.split('');
-			//temp.pop();
-			//temp = temp.join('');
-			//console.log(temp);
 
 			var icon;
 			if (outside.match(/cloud/gi)) {
 				icon = '\"fa fa-cloud\"';
-			}else if (outside.match(/clear sky/gi) || outside.match(/clear skies/gi)){
+			}else if (outside.match(/clear sky/gi)){
 				icon = '\"fa fa-moon-o\"';
 			}else if (outside.match(/rain/gi)){
 				icon = '\"fa fa-tint\"';
@@ -189,12 +186,12 @@
 				icon = '\"fa fa-sun-o\"';
 			}
 	
-		//	console.log(icon);
+			console.log(icon);
 		var ans = document.getElementById('answer');
 
 		var str = '<div class="row"><div class="col-md-6 col-md-offset-3" ><div class="row"><div class="col-md-4 col-md-offset-2"><i class='+icon+' style="color:#F0E8E8;font-size:160px;" id="state_icon"></i></div><div class="col-md-6"><p id="condition"><span id="temp_value">'+temp+'</span><button id="temp_unit" onclick="change_unit()">&#8451</button><br><span id="state_text">'+outside+'</span></p></div></div></div></div>';
 
-		//console.log(str);
+		console.log(str);
 		ans.innerHTML = str;
 	
 	}
