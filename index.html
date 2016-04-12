@@ -185,7 +185,7 @@
 				icon = '\"fa fa-moon-o\"';
 			}else if (outside.match(/rain/gi)|| outside.match(/showers/gi)){
 				icon = '\"fa fa-tint\"';
-			}else if (outside.match(/sun/gi) || outside.match(/clear/gi)){
+			}else if (outside.match(/sun/gi) || outside.match(/clear/gi) ||){
 				icon = '\"fa fa-sun-o\"';
 			}
 			
@@ -194,8 +194,6 @@
 			
 			if (data<=20 && data >= 6 && icon == '\"fa fa-moon-o\"') {
 					icon = '\"fa fa-sun-o\"';
-				}else {
-					icon = '\"fa fa-moon-o\"';
 				}
 	
 		//	console.log(icon);
