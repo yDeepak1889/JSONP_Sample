@@ -99,7 +99,15 @@
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 				var result = (xhttp.responseText);
 				result = JSON.parse(result);
-				weather(result.results[0].geometry.location.lat, result.results[0].geometry.location.lng);
+				if (result.results[0] == undefined) {
+					alert("Location doesn't exist\n");
+					$(document).ready(function(){
+						$('#answer').text(" ");
+					});
+					return;
+				}
+				weather(result.results[0].geometry.location.lat, result.results[0].geometry.location.lng,result.results[0].formatted_address);
+				console.log(result.results[0].formatted_address);
 				//console.log(result.results[0].geometry.location.lat);
 				//console.log(result.results[0].geometry.location.lng);
 		}
@@ -110,7 +118,7 @@
 	}
 
 
-	function weather(lat, log) {
+	function weather(lat, log,local) {
 	var xhttpp = new XMLHttpRequest();
 	var url = 'http://api.wunderground.com/api/1ac547819ca25112/forecast/q/'+lat+','+log+'.json';
 	xhttpp.onreadystatechange = function(){
@@ -141,9 +149,9 @@
 
 
 				if (data<=20 && data >= 6) {
-					display(condition1,max_temp);
+					display(condition1,max_temp,local);
 				}else {
-					display(condition2,min_temp);
+					display(condition2,min_temp,local);
 				}
 		}
 	}
@@ -155,7 +163,7 @@
 //display starts----------------------------------
 
 
-	function display(condition,temp) {
+	function display(condition,temp,local) {
 			//console.log(condition);
 
 
@@ -201,7 +209,7 @@
 		//	console.log(icon);
 		var ans = document.getElementById('answer');
 
-		var str = '<div class="row"><div class="col-md-6 col-md-offset-3" ><div class="row"><div class="col-md-4 col-md-offset-2"><i class='+icon+' style="color:#F0E8E8;font-size:160px;" id="state_icon"></i></div><div class="col-md-6"><p id="condition"><span id="temp_value">'+temp+'</span><button id="temp_unit" onclick="change_unit()">&#8451</button><br><span id="state_text">'+outside+'</span></p></div></div></div></div>';
+		var str = '<div ><center><h3 style="color:#fff;">' + local + '</center><div class="row"><div class="col-md-6 col-md-offset-3" ><div class="row"><div class="col-md-4 col-md-offset-2"><i class='+icon+' style="color:#F0E8E8;font-size:160px;" id="state_icon"></i></div><div class="col-md-6"><p id="condition"><span id="temp_value">'+temp+'</span><button id="temp_unit" onclick="change_unit()">&#8451</button><br><span id="state_text">'+outside+'</span></p></div></div></div></div></div>';
 
 		//console.log(str);
 		ans.innerHTML = str;
