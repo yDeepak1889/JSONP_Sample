@@ -136,8 +136,12 @@ function suggestion(content) {
 
 function display(val){
 	console.log(val.innerHTML);
-	$(document).ready(function(){
-		$('#main').text(" ");
-		$('#main').html("<div class='well' style='margin-top:2%;'> <h2> "+ val.innerHTML +"</h2>" + summary[val.innerHTML] + "</div>");
-	});
+	if (typeof(Storage) !== "undefined") {
+
+		window.sessionStorage['heading'] = val.innerHTML;
+		window.sessionStorage['sum'] = summary[val.innerHTML];
+	}
+	
+
+	window.open("main_content.html");	
 }
