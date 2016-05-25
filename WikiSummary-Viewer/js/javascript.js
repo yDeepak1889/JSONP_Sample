@@ -1,27 +1,47 @@
 function appear_input_box() {
 	$('document').ready(function(){
 
-			$('center').html('<span id="search_box"> <input type="text" title="press enter" value=""class="form-control" placeholder="Enter Query" onkeydown="get_value(this)" style="border:none;background-color:#fc6464;"></span>').animate({opacity:'1'},1000);
+			$('center').html('<span id="search_box"> <input type="text" id="input_this" title="press enter" value=""class="form-control" placeholder="Enter Query" onkeypress = "call_me()" style="border:none;background-color:#fc6464;"></span>').animate({opacity:'1'},1000);
 			$('#search_box').animate({width:'400px'},1000);
 
 		});
 
 }
 
-function get_value(temp) {
+function call_me() {
+	document.getElementById('input_this').onkeypress = function(e)  {
+		var event = e || window.event;
+		var charcode = event.which || event.keyCode;
+
+		if ( charcode == "13") {
+			val = this.value;
+
+				get_heading_raw(val);
+			//console.log (val);	
+				this.value = "";	
+
+				return false;
+		}
+	}
+}
+
+
+/*function get_value(temp) {
 	var val;
 
-	if (event.keyCode == 13) {
-		val = temp.value;
+	$('document').ready(function(){
 
-		get_heading_raw(val);
+		if (event.keyCode == 13) {
+			val = temp.value;
+
+			get_heading_raw(val);
 		//console.log (val);	
-		temp.value = "";
-		
-		
-	}
+			temp.value = "";	
+		}
 
-}
+	});
+	
+}*/
 
 
 function get_heading_raw (val) {
